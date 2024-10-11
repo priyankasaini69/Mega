@@ -1,0 +1,21 @@
+# Terraform files
+
+*.tfstate.backup
+*.tfvars.json
+*.log
+.terraform/
+
+terraform.tfstate.backup
+
+# Local .terraform directory
+.terraform/
+
+# Terraform plan files
+*.tfplan
+
+# Override files
+override.tf
+override.tf.json
+
+
+/build/
