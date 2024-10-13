@@ -1,49 +1,49 @@
 # Generate an SSH key
-resource "tls_private_key" "example" {
+resource "tls_private_key" "example1" {
   algorithm = "RSA"
   rsa_bits  = 4096
 }
 
 # Save the SSH private key to a file in .pem format
 resource "local_file" "private_key_pem" {
-  content  = tls_private_key.example.private_key_pem
+  content  = tls_private_key.example1.private_key_pem
   filename = "C:/Users/HP/Downloads/dockeri/cicd/mega/Jenkins-Worker-terraform/private_key.pem"  # Specify the local path for the SSH private key
 }
 
 
 
-resource "azurerm_resource_group" "example" {
+resource "azurerm_resource_group" "example1" {
   name     = var.resource_group_name
   location = var.resource_group_location
 }
-resource "azurerm_virtual_network" "example" {
-  name                = "example-vnet"
+resource "azurerm_virtual_network" "example1" {
+  name                = "example1-vnet"
   address_space       = ["10.0.0.0/16"]
-  location            = azurerm_resource_group.example.location
-  resource_group_name = azurerm_resource_group.example.name
+  location            = azurerm_resource_group.example1.location
+  resource_group_name = azurerm_resource_group.example1.name
 }
-resource "azurerm_subnet" "example" {
+resource "azurerm_subnet" "example1" {
   name                 = "internal"
-  resource_group_name  = azurerm_resource_group.example.name
-  virtual_network_name = azurerm_virtual_network.example.name
+  resource_group_name  = azurerm_resource_group.example1.name
+  virtual_network_name = azurerm_virtual_network.example1.name
   address_prefixes     = ["10.0.2.0/24"]
 }
-resource "azurerm_network_interface" "example" {
-  name                = "example-nic"
-  location            = azurerm_resource_group.example.location
-  resource_group_name = azurerm_resource_group.example.name
+resource "azurerm_network_interface" "example1" {
+  name                = "example1-nic"
+  location            = azurerm_resource_group.example1.location
+  resource_group_name = azurerm_resource_group.example1.name
 
   ip_configuration {
     name                          = "internal"
-    subnet_id                     = azurerm_subnet.example.id
+    subnet_id                     = azurerm_subnet.example1.id
     private_ip_address_allocation = "Dynamic"
-    public_ip_address_id          = azurerm_public_ip.example.id
+    public_ip_address_id          = azurerm_public_ip.example1.id
   }
 }
-resource "azurerm_network_security_group" "example" {
+resource "azurerm_network_security_group" "example1" {
   name                = "acceptanceTestSecurityGroup1"
-  location            = azurerm_resource_group.example.location
-  resource_group_name = azurerm_resource_group.example.name
+  location            = azurerm_resource_group.example1.location
+  resource_group_name = azurerm_resource_group.example1.name
 
   security_rule {
   name                       = "test123"
@@ -70,26 +70,26 @@ resource "azurerm_network_security_group" "example" {
 }
 
 }
-resource "azurerm_public_ip" "example" {
+resource "azurerm_public_ip" "example1" {
   name                = "acceptanceTestPublicIp1"
-  resource_group_name = azurerm_resource_group.example.name
-  location            = azurerm_resource_group.example.location
+  resource_group_name = azurerm_resource_group.example1.name
+  location            = azurerm_resource_group.example1.location
   allocation_method   = "Static"
 }
-resource "azurerm_network_interface_security_group_association" "example" {
-  network_interface_id      = azurerm_network_interface.example.id
-  network_security_group_id = azurerm_network_security_group.example.id
+resource "azurerm_network_interface_security_group_association" "example1" {
+  network_interface_id      = azurerm_network_interface.example1.id
+  network_security_group_id = azurerm_network_security_group.example1.id
 }
-resource "azurerm_linux_virtual_machine" "example" {
-  name                            = "example-machine"
-  resource_group_name             = azurerm_resource_group.example.name
-  location                        = azurerm_resource_group.example.location
+resource "azurerm_linux_virtual_machine" "example1" {
+  name                            = "example1-machine"
+  resource_group_name             = azurerm_resource_group.example1.name
+  location                        = azurerm_resource_group.example1.location
   size                            = "Standard_D2s_v3"
   admin_username                  = "adminuser"
   admin_password                  = "Windows@123456"
   disable_password_authentication = false
   network_interface_ids = [
-    azurerm_network_interface.example.id,
+    azurerm_network_interface.example1.id,
   ]
 
   os_disk {
@@ -106,6 +106,6 @@ resource "azurerm_linux_virtual_machine" "example" {
   }
   admin_ssh_key {
     username   = "adminuser"
-    public_key = tls_private_key.example.public_key_openssh
+    public_key = tls_private_key.example1.public_key_openssh
   }
 }
