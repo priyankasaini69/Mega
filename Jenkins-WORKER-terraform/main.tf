@@ -52,19 +52,7 @@ resource "azurerm_network_security_group" "example1" {
   access                     = "Allow"
   protocol                   = "Tcp"
   source_port_range          = "*"
-  destination_port_ranges    = [
-    "22",             # SSH
-    "80",             # HTTP
-    "443",            # HTTPS
-    "30000-32767",    # Kubernetes node ports
-    "465",            # SMTPS
-    "3000-6378",      # Applications (before Redis port)
-    "6380-6442",     # Applications (after Redis port)
-    "6444-10000",     # Applications (after Redis port)
-    "6379",           # Redis
-    "25",             # SMTP
-    "6443"            # Kubernetes API Server
-  ]
+  destination_port_ranges    = [443, 80, 22]
   source_address_prefix      = "*"
   destination_address_prefix = "*"
 }
