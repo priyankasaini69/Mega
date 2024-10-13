@@ -23,18 +23,18 @@ resource "azurerm_virtual_network" "example1" {
   resource_group_name = azurerm_resource_group.example1.name
 }
 resource "azurerm_subnet" "example1" {
-  name                 = "internal"
+  name                 = "internal1"
   resource_group_name  = azurerm_resource_group.example1.name
   virtual_network_name = azurerm_virtual_network.example1.name
   address_prefixes     = ["10.0.2.0/24"]
 }
 resource "azurerm_network_interface" "example1" {
-  name                = "example1-nic"
+  name                = "example1-nic1"
   location            = azurerm_resource_group.example1.location
   resource_group_name = azurerm_resource_group.example1.name
 
   ip_configuration {
-    name                          = "internal"
+    name                          = "internal1"
     subnet_id                     = azurerm_subnet.example1.id
     private_ip_address_allocation = "Dynamic"
     public_ip_address_id          = azurerm_public_ip.example1.id
@@ -69,7 +69,7 @@ resource "azurerm_network_interface_security_group_association" "example1" {
   network_security_group_id = azurerm_network_security_group.example1.id
 }
 resource "azurerm_linux_virtual_machine" "example1" {
-  name                            = "example1-machine"
+  name                            = "example1-machine1"
   resource_group_name             = azurerm_resource_group.example1.name
   location                        = azurerm_resource_group.example1.location
   size                            = "Standard_D2s_v3"
