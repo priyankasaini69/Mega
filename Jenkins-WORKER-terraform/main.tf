@@ -73,7 +73,7 @@ resource "azurerm_linux_virtual_machine" "example1" {
   resource_group_name             = azurerm_resource_group.example1.name
   location                        = azurerm_resource_group.example1.location
   size                            = "Standard_D2s_v3"
-  admin_username                  = "adminuser"
+  admin_username                  = "jenkins-worker"
   admin_password                  = "Windows@123456"
   disable_password_authentication = false
   network_interface_ids = [
@@ -93,7 +93,7 @@ resource "azurerm_linux_virtual_machine" "example1" {
     version   = "latest"
   }
   admin_ssh_key {
-    username   = "adminuser"
+    username   = "jenkins-worker"
     public_key = tls_private_key.example1.public_key_openssh
   }
 }
