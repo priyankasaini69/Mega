@@ -28,7 +28,7 @@ metadata:
   name: backend-service
   namespace: wanderlust
 spec:
-  type: NodePort
+  type: LoadBalancer
   selector:
     app: backend
   ports:
