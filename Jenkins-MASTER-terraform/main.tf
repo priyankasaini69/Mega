@@ -81,7 +81,7 @@ resource "azurerm_network_interface_security_group_association" "example" {
   network_security_group_id = azurerm_network_security_group.example.id
 }
 resource "azurerm_linux_virtual_machine" "example" {
-  name                            = "example-machine"
+  name                            = "JenkinsMASTER"
   resource_group_name             = azurerm_resource_group.example.name
   location                        = azurerm_resource_group.example.location
   size                            = "Standard_D2s_v3"
