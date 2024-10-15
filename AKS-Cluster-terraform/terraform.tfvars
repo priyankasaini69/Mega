@@ -3,4 +3,4 @@ location            = "CentralIndia"
 cluster_name        = "wanderlust"
 kubernetes_version  = "1.30"
 system_node_count   = 2
-acr_name            = "aksterraform"
+acr_name            = "akstf"
