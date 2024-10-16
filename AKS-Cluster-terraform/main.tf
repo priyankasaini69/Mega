@@ -51,7 +51,7 @@ data "azurerm_kubernetes_cluster_node_pool" "node_pool" {
   name                    = azurerm_kubernetes_cluster.aks.default_node_pool[0].name
 }
 
-data "azurerm_virtual_machine_scale_set" "aks_vmss" {
+data "azurerm_virtual_machine_scale_set" "system" {
   name                = data.azurerm_kubernetes_cluster_node_pool.node_pool.node_resource_group_id
   resource_group_name = azurerm_resource_group.aks-rg.name
 }
