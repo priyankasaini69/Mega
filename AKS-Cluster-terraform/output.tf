@@ -4,6 +4,6 @@
 #   ]
 # }
 
-output "resource_group_name" {
-  value = data.azurerm_virtual_machine_scale_set.aks_vmss.resource_group_name
-}
+# output "resource_group_name" {
+#   value = data.azurerm_virtual_machine_scale_set.aks_vmss.resource_group_name
+# }
