@@ -1,11 +1,11 @@
 #!/bin/bash
 
-# Set the VM name and resource group
-VM_NAME="example-machine"
-RESOURCE_GROUP="myResourceGroup"
+# Set the VMSS name and resource group
+VMSS_NAME="aks-system-17889271-vmss"  # Update this to your actual VMSS name
+RESOURCE_GROUP="MC_myResourceGroup_wanderlust_centralindia"
 
-# Retrieve the public IP address of the specified Azure VM
-ipv4_address=$(az vm list-ip-addresses --name $VM_NAME --resource-group $RESOURCE_GROUP --query "[0].virtualMachine.network.publicIpAddresses[0].ipAddress" --output tsv)
+# Retrieve the public IP address of the first instance in the VM scale set
+ipv4_address=$(az vmss list-ip-addresses --resource-group $RESOURCE_GROUP --name $VMSS_NAME --query "[0].virtualMachine.network.publicIpAddresses[0].ipAddress" --output tsv)
 
 # Path to the .env file
 file_to_find="../backend/.env.docker"
