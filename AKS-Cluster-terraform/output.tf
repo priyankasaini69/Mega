@@ -1,25 +1,22 @@
-output "aks_id" {
-  value = azurerm_kubernetes_cluster.aks.id
+output "resource_group_name" {
+  value = azurerm_resource_group.aks-rg.name
 }
 
-output "aks_fqdn" {
-  value = azurerm_kubernetes_cluster.aks.fqdn
+output "aks_cluster_name" {
+  value = azurerm_kubernetes_cluster.aks.name
 }
 
-output "aks_node_rg" {
-  value = azurerm_kubernetes_cluster.aks.node_resource_group
+output "vm_instance_ids" {
+  value = data.azurerm_virtual_machine_scale_set.aks_vmss.instances[*].instance_id
+  description = "The instance IDs of the VMs in the AKS node pool."
 }
 
-output "acr_id" {
-  value = azurerm_container_registry.acr.id
+output "vm_private_ip_addresses" {
+  value = data.azurerm_virtual_machine_scale_set.aks_vmss.instances[*].private_ip_address
+  description = "The private IP addresses of the VMs in the AKS node pool."
 }
 
-output "acr_login_server" {
-  value = azurerm_container_registry.acr.login_server
-}
-
-resource "local_file" "kubeconfig" {
-  depends_on   = [azurerm_kubernetes_cluster.aks]
-  filename     = "kubeconfig"
-  content      = azurerm_kubernetes_cluster.aks.kube_config_raw
+output "vm_public_ip_addresses" {
+  value = data.azurerm_virtual_machine_scale_set.aks_vmss.instances[*].public_ip_address
+  description = "The public IP addresses of the VMs in the AKS node pool."
 }

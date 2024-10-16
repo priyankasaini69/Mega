@@ -20,6 +20,12 @@ resource "azurerm_container_registry" "acr" {
   admin_enabled       = false
 }
 
+data "azurerm_virtual_machine_scale_set" "aks_vmss" {
+  name                = "aks-${azurerm_kubernetes_cluster.aks.default_node_pool.0.name}-vmss" 
+  resource_group_name = azurerm_resource_group.aks-rg.name
+}
+
+
 resource "azurerm_kubernetes_cluster" "aks" {
   name                = var.cluster_name
   kubernetes_version  = var.kubernetes_version
