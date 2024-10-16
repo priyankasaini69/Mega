@@ -46,14 +46,13 @@ resource "azurerm_kubernetes_cluster" "aks" {
 }
 # Data source for the Kubernetes node pool
 data "azurerm_kubernetes_cluster_node_pool" "node_pool" {
-  resource_group_name     = azurerm_resource_group.aks_rg.name
-  kubernetes_cluster_name = azurerm_kubernetes_cluster.aks.name
+  resource_group_name     = var.resource_group_name
+  kubernetes_cluster_name = var.cluster_name
   name                    = azurerm_kubernetes_cluster.aks.default_node_pool[0].name
 }
 
 # Data source for the VM Scale Set
 data "azurerm_virtual_machine_scale_set" "aks_vmss" {
-  name                = "aks-${azurerm_kubernetes_cluster.aks.name}-${data.azurerm_kubernetes_cluster_node_pool.node_pool.name}-vmss"
-  resource_group_name = azurerm_resource_group.aks_rg.name
-}
+  name                = "aks-${var.cluster_name}-${data.azurerm_kubernetes_cluster_node_pool.node_pool.name}-vmss"
+  resource_group_name = var.resource_group_name
 
