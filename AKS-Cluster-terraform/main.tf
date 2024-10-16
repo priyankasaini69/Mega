@@ -44,16 +44,16 @@ resource "azurerm_kubernetes_cluster" "aks" {
   }
   
 }
-# Add the required attributes kubernetes_cluster_name and resource_group_name
-# Data source to get the node pool details
+# Data source for the Kubernetes node pool
 data "azurerm_kubernetes_cluster_node_pool" "node_pool" {
-  resource_group_name     = azurerm_resource_group.aks-rg.name
+  resource_group_name     = azurerm_resource_group.aks_rg.name
   kubernetes_cluster_name = azurerm_kubernetes_cluster.aks.name
   name                    = azurerm_kubernetes_cluster.aks.default_node_pool[0].name
 }
 
-# Correctly get the VM Scale Set details using constructed name
+# Data source for the VM Scale Set
 data "azurerm_virtual_machine_scale_set" "aks_vmss" {
   name                = "aks-${azurerm_kubernetes_cluster.aks.name}-${data.azurerm_kubernetes_cluster_node_pool.node_pool.name}-vmss"
-  resource_group_name = azurerm_resource_group.aks-rg.name
+  resource_group_name = azurerm_resource_group.aks_rg.name
 }
+
