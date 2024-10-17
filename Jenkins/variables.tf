@@ -6,4 +6,8 @@ variable "resource_group_location" {
   type = string
 }
 
+variable "numberofvirtualmachine" {
+  type = number
+}
+
 
